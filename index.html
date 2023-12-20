@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Tracker</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-TIehKce4U5fLZqK8pVt54Ez8mPQQETVPib52xuS3QDA5Sg7xXUIwyKcvoMk29P4" crossorigin="anonymous">
+    <!-- Ваш собственный CSS -->
+    <link rel="stylesheet" href="styile.css"> <!-- Исправил на "style.css" -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- Навигационная панель Bootstrap -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Мой веб-сайт</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Главная <span class="sr-only">(текущая)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">О нас</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Сервисы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Контакты</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Адаптивная сетка Bootstrap -->
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <section class="mb-4">
+                    <h2>Форма входа</h2>
+                    <!-- Bootstrap Форма -->
+                    <form>
+                        <div class="form-group">
+                            <label for="username">Имя пользователя</label>
+                            <input type="text" class="form-control" id="username"
+                                placeholder="Введите ваше имя пользователя">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Пароль</label>
+                            <input type="password" class="form-control" id="password"
+                                placeholder="Введите ваш пароль">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Войти</button>
+                    </form>
+                </section>
+            </div>
+
+            <div class="col-md-6">
+                <section class="mb-4">
+                    <h2>Контент</h2>
+                    <p>Некоторый текст о вашем веб-сайте...</p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключение Bootstrap JS (необходимо для работы некоторых компонентов) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"
+        integrity="sha384-pzjw8Q+ua/Adg6NpPVnQq6pR2QCxw6Upx0q6fTEL6UZl/60lVGKpX8z06nZ6yGqZ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wyeg5DkVYD5I2S9NvbnvZd1E94kiD6OMOc"
+        crossorigin="anonymous"></script>
+
+    <!-- Скрипт для работы с графиками -->
+    <script>
+        // Код для графика физической активности
+        var activityData = {
+            labels: ["Running", "Cycling", "Swimming"],
+            datasets: [{
+                label: "Minutes of Activity",
+                backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(255, 206, 86, 0.2)", "rgba(75, 192, 192, 0.2)"],
+                borderColor: ["rgba(255, 99, 132, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)"],
+                borderWidth: 1,
+                data: [0, 0, 0],
+            }]
+        };
+
+        var activityChart = new Chart(document.getElementById("activityChart"), {
+            type: 'bar',
+            data: activityData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Код для графика сна
+        var sleepData = {
+            labels: ["Deep Sleep", "Light Sleep", "REM Sleep"],
+            datasets: [{
+                label: "Minutes of Sleep",
+                backgroundColor: ["rgba(153, 102, 255, 0.2)", "rgba(255, 206, 86, 0.2)", "rgba(75, 192, 192, 0.2)"],
+                borderColor: ["rgba(153, 102, 255, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)"],
+                borderWidth: 1,
+                data: [0, 0, 0],
+            }]
+        };
+
+        var sleepChart = new Chart(document.getElementById("sleepChart"), {
+            type: 'bar',
+            data: sleepData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Код для графика питания
+        var nutritionData = {
+            labels: ["Protein", "Carbohydrates", "Fats"],
+            datasets: [{
+                label: "Calories Consumed",
+                backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(255, 206, 86, 0.2)", "rgba(153, 102, 255, 0.2)"],
+                borderColor: ["rgba(255, 99, 132, 1)", "rgba(255, 206, 86, 1)", "rgba(153, 102, 255, 1)"],
+                borderWidth: 1,
+                data: [0, 0, 0],
+            }]
+        };
+
+        var nutritionChart = new Chart(document.getElementById("nutritionChart"), {
+            type: 'bar',
+            data: nutritionData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Функция для отправки данных физической активности
+        function submitActivity() {
+            var activityType = document.getElementById("activity").value;
+            var activityDuration = parseInt(document.getElementById("duration").value);
+
+            // Добавьте код для обработки данных физической активности, например, сохраните их или отправьте на сервер
+
+            // Добавьте данные к графику
+            var dataIndex = activityData.labels.indexOf(activityType);
+            activityData.datasets[0].data[dataIndex] += activityDuration;
+
+            // Обновите график
+            activityChart.update();
+        }
+
+        // Функция для отправки данных сна
+        function submitSleep() {
+            var sleepDuration = parseInt(document.getElementById("sleepDuration").value);
+            var sleepType = document.getElementById("sleepType").value;
+
+            // Добавьте код для обработки данных сна, например, сохраните их или отправьте на сервер
+
+            // Добавьте данные к графику
+            var dataIndex = sleepData.labels.indexOf(sleepType);
+            sleepData.datasets[0].data[dataIndex] += sleepDuration;
+
+            // Обновите график
+            sleepChart.update();
+        }
+
+        // Функция для отправки данных питания
+        function submitNutrition() {
+            var protein = parseInt(document.getElementById("protein").value);
+            var carbs = parseInt(document.getElementById("carbs").value);
+            var fats = parseInt(document.getElementById("fats").value);
+
+            // Добавьте код для обработки данных питания, например, сохраните их или отправьте на сервер
+
+            // Добавьте данные к графику
+            nutritionData.datasets[0].data = [protein, carbs, fats];
+
+            // Обновите график
+            nutritionChart.update();
+        }
+    </script>
+
+    <header>
+        <h1>Health Tracker</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#physical-activity">Physical Activity</a></li>
+            <li><a href="#sleep-tracker">Sleep Tracker</a></li>
+            <li><a href="#nutrition-tracker">Nutrition Tracker</a></li>
+        </ul>
+    </nav>
+
+    <section id="physical-activity">
+        <h2>Physical Activity</h2>
+        <form id="activityForm">
+            <div>
+                <label for="activity">Activity Type:</label>
+                <select id="activity" name="activity">
+                    <option value="running">Running</option>
+                    <option value="cycling">Cycling</option>
+                    <option value="swimming">Swimming</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="duration">Duration (minutes):</label>
+                <input type="number" id="duration" name="duration" required>
+            </div>
+
+            <div>
+                <button type="button" onclick="submitActivity()">Submit</button>
+            </div>
+        </form>
+
+        <!-- График для физической активности -->
+        <canvas id="activityChart" width="400" height="200"></canvas>
+    </section>
+
+    <hr>
+
+    <section id="sleep-tracker">
+        <h2>Sleep Tracker</h2>
+        <form id="sleepForm">
+            <div>
+                <label for="sleepDuration">Sleep Duration (hours):</label>
+                <input type="number" id="sleepDuration" name="sleepDuration" required>
+            </div>
+
+            <div>
+                <label for="sleepType">Sleep Type:</label>
+                <select id="sleepType" name="sleepType">
+                    <option value="deep">Deep Sleep</option>
+                    <option value="light">Light Sleep</option>
+                    <option value="rem">REM Sleep</option>
+                </select>
+            </div>
+
+            <div>
+                <button type="button" onclick="submitSleep()">Submit</button>
+            </div>
+        </form>
+
+        <!-- График для сна -->
+        <canvas id="sleepChart" width="400" height="200"></canvas>
+    </section>
+
+    <hr>
+
+    <section id="nutrition-tracker">
+        <h2>Nutrition Tracker</h2>
+        <form id="nutritionForm">
+            <div>
+                <label for="protein">Protein (grams):</label>
+                <input type="number" id="protein" name="protein" required>
+            </div>
+
+            <div>
+                <label for="carbs">Carbohydrates (grams):</label>
+                <input type="number" id="carbs" name="carbs" required>
+            </div>
+
+            <div>
+                <label for="fats">Fats (grams):</label>
+                <input type="number" id="fats" name="fats" required>
+            </div>
+
+            <div>
+                <button type="button" onclick="submitNutrition()">Submit</button>
+            </div>
+        </form>
+
+        <!-- График для питания -->
+        <canvas id="nutritionChart" width="400" height="200"></canvas>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>Data Table Example</h2>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Activity</th>
+                        <th>Duration (minutes)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Running</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>Cycling</td>
+                        <td>45</td>
+                    </tr>
+                    <tr>
+                        <td>Swimming</td>
+                        <td>60</td>
+                    </tr>
+                </tbody>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <script>
+        // Код для графика физической активности
+        var activityData = {
+            labels: ["Running", "Cycling", "Swimming"],
+            datasets: [{
+                label: "Minutes of Activity",
+                backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(255, 206, 86, 0.2)", "rgba(75, 192, 192, 0.2)"],
+                borderColor: ["rgba(255, 99, 132, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)"],
+                borderWidth: 1,
+                data: [0, 0, 0],
+            }]
+        };
+
+        var activityChart = new Chart(document.getElementById("activityChart"), {
+            type: 'bar',
+            data: activityData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Код для графика сна
+        var sleepData = {
+            labels: ["Deep Sleep", "Light Sleep", "REM Sleep"],
+            datasets: [{
+                label: "Minutes of Sleep",
+                backgroundColor: ["rgba(153, 102, 255, 0.2)", "rgba(255, 206, 86, 0.2)", "rgba(75, 192, 192, 0.2)"],
+                borderColor: ["rgba(153, 102, 255, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)"],
+                borderWidth: 1,
+                data: [0, 0, 0],
+            }]
+        };
+
+        var sleepChart = new Chart(document.getElementById("sleepChart"), {
+            type: 'bar',
+            data: sleepData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Код для графика питания
+        var nutritionData = {
+            labels: ["Protein", "Carbohydrates", "Fats"],
+            datasets: [{
+                label: "Calories Consumed",
+                backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(255, 206, 86, 0.2)", "rgba(153, 102, 255, 0.2)"],
+                borderColor: ["rgba(255, 99, 132, 1)", "rgba(255, 206, 86, 1)", "rgba(153, 102, 255, 1)"],
+                borderWidth: 1,
+                data: [0, 0, 0],
+            }]
+        };
+
+        var nutritionChart = new Chart(document.getElementById("nutritionChart"), {
+            type: 'bar',
+            data: nutritionData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Функция для отправки данных физической активности
+        function submitActivity() {
+            var activityType = document.getElementById("activity").value;
+            var activityDuration = parseInt(document.getElementById("duration").value);
+
+            // Добавьте код для обработки данных физической активности, например, сохраните их или отправьте на сервер
+
+            // Добавьте данные к графику
+            var dataIndex = activityData.labels.indexOf(activityType);
+            activityData.datasets[0].data[dataIndex] += activityDuration;
+
+            // Обновите график
+            activityChart.update();
+        }
+
+        // Функция для отправки данных сна
+        function submitSleep() {
+            var sleepDuration = parseInt(document.getElementById("sleepDuration").value);
+            var sleepType = document.getElementById("sleepType").value;
+
+            // Добавьте код для обработки данных сна, например, сохраните их или отправьте на сервер
+
+            // Добавьте данные к графику
+            var dataIndex = sleepData.labels.indexOf(sleepType);
+            sleepData.datasets[0].data[dataIndex] += sleepDuration;
+
+            // Обновите график
+            sleepChart.update();
+        }
+
+        // Функция для отправки данных питания
+        function submitNutrition() {
+            var protein = parseInt(document.getElementById("protein").value);
+            var carbs = parseInt(document.getElementById("carbs").value);
+            var fats = parseInt(document.getElementById("fats").value);
+
+       // Добавьте код для обработки данных питания, например, сохраните их или отправьте на сервер
+
+            // Добавьте данные к графику
+            nutritionData.datasets[0].data = [protein, carbs, fats];
+
+            // Обновите график
+            nutritionChart.update();
+        }
+    </script>
+</body>
+</html>
